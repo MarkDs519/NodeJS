@@ -91,7 +91,7 @@ var eventHandler = () => {
             // prevent the webpage from refreshing too fast
             event.preventDefault();
             
-            fetch("http://192.168.50.68:3000", {
+            fetch("http://localhost:3000", {
               method: "POST",
               body: JSON.stringify(signUpData),
               headers: {
