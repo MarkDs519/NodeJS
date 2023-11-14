@@ -9,7 +9,7 @@ const Register = ({data, onChange, signUpHandler}) => {
     // add styles
     const paperStyle = {
         padding: 20,
-        height: '90vh',
+        height: '110vh',
         width: 350,
         margin: '20px auto'
     }

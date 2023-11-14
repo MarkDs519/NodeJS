@@ -45,9 +45,9 @@ function App() {
     handler.handleSignUpInputChange(e, signUpData, setSignUpData);
   }
   // Handle Sign Up
-  const signUpHandler = e => {
-    handler.handleSignUp(e, signUpData, setSignUpData)
-    console.log("final data: ", signUpData)
+  const signUpHandler = () => {
+    handler.handleSignUp(signInData, setSignInData)
+    //console.log("final data: ", signUpData)
   }
 
   const test = event => {
@@ -64,7 +64,7 @@ function App() {
         <Routes>
           <Route index element={<Login data={signInData} onChange={signIn}/>} />
           <Route path='/login' element={<Login data={signInData} onChange={signIn}/>}/>
-          <Route path="/register" element={<Register data={signUpData} onChange={signUp} signUpHandler={signUpHandler}/>} />
+          <Route path="/register" element={<Register data={signUpData} onChange={signUp} handleSignUp={signUpHandler}/>} />
           <Route path='/home' element={<Home test={test}/>}/>
         </Routes>
       </BrowserRouter>

@@ -1,12 +1,12 @@
-var mysql = require("mysql");
+var mysql = require("mysql2");
+var creds = require("./credentials.js")
 
 // establish a connection
 var connection = mysql.createConnection({
-    host: 'SFC-PF2YDLDR',
-    database: 'users',
+    host: 'localhost',
+    database: 'USERS',
     user: 'root',
-    password: 'root',
-    port: '3306'
+    password: 'Rockbottom@95'
 })
 
 module.exports = connection;
