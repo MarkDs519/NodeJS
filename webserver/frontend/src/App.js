@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import Login from './components/Login';
 import Register from './components/Register';
 import Home from './components/Home';
-const eventHandler = require('./handler.js');
+import handlerInp from './handler.js'
+import axios from 'axios';
+
+
+//const handler = require('./handler.js');
 
 function App() {
   // used to navigate to other pages
@@ -32,22 +36,37 @@ function App() {
     email: ""
   })
 
-  // Input Change Handler
-  var handler = eventHandler();
-
   // Handle Sign In
   const signIn = e => {
-    handler.handleSignInInputChange(e, signInData, setSignInData);
+    handlerInp.handleSignInInputChange(e, signInData, setSignInData);
   }
 
   // Sign Up Input Handler
   const signUp = (e) => {
-    handler.handleSignUpInputChange(e, signUpData, setSignUpData);
+    handlerInp.handleSignUpInputChange(e, signUpData, setSignUpData);
   }
   // Handle Sign Up
   const signUpHandler = () => {
-    handler.handleSignUp(signInData, setSignInData)
-    //console.log("final data: ", signUpData)
+      console.log("Uploading info to database...")
+      axios.post("http://localhost/Register/addUser", signUpData)
+      .then((response) => {
+      console.log(response.status, response);
+      })
+      .then(data => setSignUpData(data))
+      .then(msg => console.log(msg))
+      .catch(error => console.log(error))
+      
+      // clear the inputs
+      setSignUpData({
+          firstname: "",
+          lastname: "",
+          email: "",
+          username: "",
+          password: "",
+          emailValid: false,
+          usernameValid: false,
+          passwordValid: false
+      });
   }
 
   const test = event => {
