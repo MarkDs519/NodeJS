@@ -11,7 +11,7 @@ const Login = ({data, onChange}) => {
     // add styles
     const paperStyle = {
         padding: 20,
-        height: '70vh',
+        height: '80vh',
         width: 280,
         margin: '20px auto'
     }
@@ -49,7 +49,7 @@ const Login = ({data, onChange}) => {
                 <TextField name="password" value={data.password} id="password" label="Password" variant="outlined" fullWidth style={fieldStyle} onChange={(e) => onChange(e)} required type='password'/>
                 {data.passwordValid===true ? <span style={validStyle}>Password is Valid &nbsp;</span> : <span style={notValidStyle}>Password should have atleast 8 characters, 1 symbol, 1 uppercase and 1 lowercase &nbsp;</span>}
                 <FormControlLabel name="rememberCheckbox" control={<Checkbox id="rememberCheckbox" name="rememberCheckbox" checked={data.rememberCheckbox} onChange={(e) => onChange(e)}/>} label="Remember me" />
-                <Button variant="contained" color="primary" fullWidth style={btnStyle} disabled={!data.username || !data.password || data.usernameValid===false || data.passwordValid===false} onClick={() => navigate("/Home")}>Log in</Button>
+                <Button variant="contained" color="primary" fullWidth style={btnStyle} disabled={!data.username || !data.password || data.usernameValid===false || data.passwordValid===false} onClick={e => navigate('/home')}>Log in</Button>
                 <Typography>
                     <Link href='#'>Forgot password ?</Link>
                 </Typography>

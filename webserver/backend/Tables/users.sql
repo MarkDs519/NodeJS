@@ -1,4 +1,4 @@
-CREATE TABLE users.USERS(
+CREATE TABLE USERS.USERS(
 	firstname VARCHAR(255),
     lastname VARCHAR(255),
     email	VARCHAR(255),

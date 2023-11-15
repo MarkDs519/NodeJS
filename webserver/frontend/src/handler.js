@@ -1,5 +1,5 @@
-
-const validator = require('./validator.js');
+var databaseHandler = require('/Users/markdhrubasikder/Documents/Projects/NodeJS/webserver/backend/testConnection.js')
+var validator = require('./validator.js');
 
 var eventHandler = () => {
     var validate = validator();
@@ -86,35 +86,17 @@ var eventHandler = () => {
             //return newSignUpData;  
         },
 
-        handleSignUp: (event, signUpData, setData) => {
-            console.log("Submitting the data..")
-            // prevent the webpage from refreshing too fast
-            event.preventDefault();
+        handleSignUp: (signUpData, setData) => {
+            console.log("Uploading data to database...")
+            databaseHandler.insertData(signUpData);
             
-            fetch("http://localhost:3000", {
-              method: "POST",
-              body: JSON.stringify(signUpData),
-              headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-              }
-            })
-            .then(response => response.json())
-            .then(data => setData(data))
-            .then(msg => console.log("MESSAGE ERROR!!!: ", msg))
-            .catch(error => console.log("ERROR!!!", error))
-            
-        
             // clear the inputs
             setData({
-                firstname: "",
-                lastname: "",
                 username: "",
-                email: "",
                 password: "",
-                emailValid: false,
                 usernameValid: false,
-                passwordValid: false
+                passwordValid: false,
+                rememberCheckbox: false
             });
         
           }
