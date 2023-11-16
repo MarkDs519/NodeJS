@@ -4,7 +4,6 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Home from './components/Home';
 import handlerInp from './handler.js'
-import axios from 'axios';
 
 
 //const handler = require('./handler.js');
@@ -46,16 +45,32 @@ function App() {
     handlerInp.handleSignUpInputChange(e, signUpData, setSignUpData);
   }
   // Handle Sign Up
-  const signUpHandler = () => {
+  const signUpHandler = (event) => {
+      event.preventDefault();
       console.log("Uploading info to database...")
-      axios.post("http://localhost/Register/addUser", signUpData)
-      .then((response) => {
-      console.log(response.status, response);
+      //let data = JSON.stringify(signUpData)
+      //console.log("Data", data);
+      
+      //console.log("Data: ", signUpData)
+      
+      fetch("/Register/posts", {
+        method: "POST",
+        mode: "cors", 
+        //redirect: 'follow',
+        body: JSON.stringify(signUpData),
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
       })
-      .then(data => setSignUpData(data))
-      .then(msg => console.log(msg))
+      .then(response => response.json())
+      .then(data => setSignUpData({data}))
+      .then(data => console.log({data}))
+      .then(msg => console.log("Message: ", msg))
       .catch(error => console.log(error))
       
+
+      console.log("Fetching done")
       // clear the inputs
       setSignUpData({
           firstname: "",
