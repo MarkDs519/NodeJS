@@ -1,35 +1,29 @@
-var express = require("express");
-var cors = require('cors');
-var app = express();
-var db = require('./database');
+const express = require("express");
+const config =require('./config.js');
+const Database = require('./database.js');
+// call the database obj
+const database = new Database(config);
+const router = express.Router();
+router.use(express.json());
+router.use((_req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', '*');
+  next();
+})
 
-const databaseHandler = () => {
-    const dataHandler = {
-        insertData: (req) => {
-            // get data from forms and add to the table called user..
-            let firstname = req.firstname;
-            let lastname = req.lastname;
-            let email = req.email;
-            let username = req.username;
-            let password = req.password;
-
-        
-             const sql = `INSERT INTO USERS((firstname, lastname, email, username, password)
-               VALUES ('${firstname}','${lastname}','${email}','${username}','${password}')`;
-                 db.query(sql, (err)=> {
-                 if(err) throw err;
-              })
-        }
+router.post('/addUser', async (req, res) => {
+    try {
+      res.header('Access-Control-Allow-Origin', '*');
+      res.header('Access-Control-Allow-Headers', '*');
+      // Create a user obj to store the data
+      const user = req.body;
+      console.log(`USERS: ${JSON.stringify(user)}`);
+      const rowsAffected = await database.create(user);
+      res.status(201).json({ rowsAffected });
+    } catch (err) {
+      res.status(500).json({ error: err?.message });
     }
-    // listener
-    app.listen(8000, function(){
-        console.log('App is listening to 8000');
-        db.connect(function(err){
-            if(err) throw err;
-            console.log('Database connection successful.')
-       })
-    })
-    return dataHandler;
-}
+  });
 
-module.exports = databaseHandler;
+
+module.exports = router;

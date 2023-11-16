@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import Login from './components/Login';
 import Register from './components/Register';
 import Home from './components/Home';
-const eventHandler = require('./handler.js');
+import handlerInp from './handler.js'
+
+
+//const handler = require('./handler.js');
 
 function App() {
   // used to navigate to other pages
@@ -32,22 +35,53 @@ function App() {
     email: ""
   })
 
-  // Input Change Handler
-  var handler = eventHandler();
-
   // Handle Sign In
   const signIn = e => {
-    handler.handleSignInInputChange(e, signInData, setSignInData);
+    handlerInp.handleSignInInputChange(e, signInData, setSignInData);
   }
 
   // Sign Up Input Handler
   const signUp = (e) => {
-    handler.handleSignUpInputChange(e, signUpData, setSignUpData);
+    handlerInp.handleSignUpInputChange(e, signUpData, setSignUpData);
   }
   // Handle Sign Up
-  const signUpHandler = () => {
-    handler.handleSignUp(signInData, setSignInData)
-    //console.log("final data: ", signUpData)
+  const signUpHandler = (event) => {
+      event.preventDefault();
+      console.log("Uploading info to database...")
+      //let data = JSON.stringify(signUpData)
+      //console.log("Data", data);
+      
+      //console.log("Data: ", signUpData)
+      
+      fetch("/Register/posts", {
+        method: "POST",
+        mode: "cors", 
+        //redirect: 'follow',
+        body: JSON.stringify(signUpData),
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(response => response.json())
+      .then(data => setSignUpData({data}))
+      .then(data => console.log({data}))
+      .then(msg => console.log("Message: ", msg))
+      .catch(error => console.log(error))
+      
+
+      console.log("Fetching done")
+      // clear the inputs
+      setSignUpData({
+          firstname: "",
+          lastname: "",
+          email: "",
+          username: "",
+          password: "",
+          emailValid: false,
+          usernameValid: false,
+          passwordValid: false
+      });
   }
 
   const test = event => {

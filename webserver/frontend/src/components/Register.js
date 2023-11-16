@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 //import { useNavigate } from "react-router-dom";
 //import { margin } from "@mui/system";
 
-const Register = ({data, onChange, signUpHandler}) => {
+const Register = ({data, onChange, handleSignUp}) => {
     //const navigate = useNavigate();
     // add styles
     const paperStyle = {
@@ -47,7 +47,7 @@ const Register = ({data, onChange, signUpHandler}) => {
                 {data.usernameValid===true ? null : <span style={notValidStyle}>Username should have atleast 5 characters</span>}
                 <TextField name="password" id="password" value={data.password} label="Enter Password" variant="outlined" fullWidth style={fieldStyle} onChange={(e) => onChange(e)} required type='password'/>
                 {data.passwordValid===true ? <span style={validStyle}>Password is Valid</span> : <span style={notValidStyle}>Password should have atleast 8 characters, 1 symbol, 1 uppercase and 1 lowercase</span>}
-                <Button variant="contained" color="primary" fullWidth style={btnStyle} disabled={!data.firstname || !data.lastname || !data.email || !data.username || !data.password || data.emailValid===false || data.usernameValid===false || data.passwordValid===false} onClick={signUpHandler}>Sign Up</Button>
+                <Button variant="contained" color="primary" fullWidth style={btnStyle} disabled={!data.firstname || !data.lastname || !data.email || !data.username || !data.password || data.emailValid===false || data.usernameValid===false || data.passwordValid===false} onClick={handleSignUp}>Sign Up</Button>
                 <Typography>
                     Already have an account?
                     <Link href='/'> Sign In</Link>
