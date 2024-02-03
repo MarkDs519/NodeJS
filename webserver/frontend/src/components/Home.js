@@ -1,17 +1,17 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { TextField } from "@material-ui/core";
+import { Card, CardActionArea, CardContent, Typography } from '@mui/material';
+import Navbar from "./Navbar";
+import Login from "./Login";
+import ServicesCard from "./ServicesCard";
 
-const Home = ({data, test}) => {
-    return(
-        
-        <ul>
-            <TextField name="email" id="email" label="email" variant="outlined" fullWidth onChange={(e) => test(e)}/>
-            <Link to="/">Go back to Log In</Link>
-        </ul>
-    
-        
+const Home = () => {
+    return (
+        <div>
+            <Navbar></Navbar>
+            <ServicesCard></ServicesCard>
+
+        </div>
     )
-}
+  }
 
 export default Home;

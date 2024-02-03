@@ -48,11 +48,6 @@ function App() {
   const signUpHandler = (event) => {
       event.preventDefault();
       console.log("Uploading info to database...")
-      //let data = JSON.stringify(signUpData)
-      //console.log("Data", data);
-      
-      //console.log("Data: ", signUpData)
-      
       fetch("/Register/posts", {
         method: "POST",
         mode: "cors", 
@@ -64,8 +59,8 @@ function App() {
         }
       })
       .then(response => response.json())
-      .then(data => setSignUpData({data}))
-      .then(data => console.log({data}))
+      .then(data => setSignUpData([data]))
+      .then(data => console.log([data]))
       .then(msg => console.log("Message: ", msg))
       .catch(error => console.log(error))
       
